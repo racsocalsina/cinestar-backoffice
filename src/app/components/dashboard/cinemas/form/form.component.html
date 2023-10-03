@@ -1,0 +1,195 @@
+<div class="card mb-0">
+  <div class="card-body">
+    <div class="page-header mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="">
+          <h3>{{cinema ? 'Editar' : 'Crear'}}</h3>
+        </div>
+        <div class="">
+          <button class="close pull-right" (click)="bsModalRef.hide()">
+            <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="error" class="text-danger mb-4">{{error}}</div>
+
+    <div [formGroup]="form">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label for="name">Nombre</label>
+                  <app-control-messages [control]="form.get('name')">
+                    <input type="text" class="form-control" id="name" placeholder="" formControlName="name">
+                  </app-control-messages>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="trade_name">Nombre comercial</label>
+                  <app-control-messages [control]="form.get('trade_name')">
+                    <ng-select class="custom-ng-select" formControlName="trade_name" placeholder="Seleccionar"
+                      [items]="tradeNames" bindValue="id" bindLabel="name" [searchable]="false" (change)="filterCities()">
+                    </ng-select>
+                  </app-control-messages>
+                </div>
+              </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label for="business_name">Razón social</label>
+                  <app-control-messages [control]="form.get('business_name')">
+                    <ng-select class="custom-ng-select" formControlName="business_name" placeholder="Seleccionar"
+                      [items]="businessNames" bindValue="id" bindLabel="name" [searchable]="false">
+                    </ng-select>
+                  </app-control-messages>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="city_id">Ciudad</label>
+                  <app-control-messages [control]="form.get('city_id')">
+                    <ng-select class="custom-ng-select" formControlName="city_id" placeholder="Seleccionar" [items]="citiesByTrade"
+                      bindValue="id" bindLabel="name" [searchable]="false" [clearable]="true" clearAllText="Limpiar">
+                    </ng-select>
+                  </app-control-messages>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description">Descripción</label>
+                <app-control-messages [control]="form.get('description')">
+                  <textarea name="description" id="description" class="form-control" formControlName="description" rows="6"></textarea>
+                </app-control-messages>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="movie_formats">Tipos de salas</label>
+                <app-control-messages [control]="form.get('movie_formats')">
+                  <ng-select class="custom-ng-select" formControlName="movie_formats" placeholder="Seleccionar"
+                    [items]="movieFormats" bindValue="id" bindLabel="name" [searchable]="false" [clearable]="true"
+                    clearAllText="Limpiar" [multiple]="true">
+                  </ng-select>
+                </app-control-messages>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="address">Dirección</label>
+                <app-control-messages [control]="form.get('address')">
+                  <input type="text" class="form-control" id="address" placeholder="" formControlName="address">
+                </app-control-messages>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="latitude">Latitud</label>
+                <app-control-messages [control]="form.get('latitude')">
+                  <input type="text" class="form-control" id="latitude" placeholder="" formControlName="latitude">
+                </app-control-messages>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="longitude">Longitud</label>
+                <app-control-messages [control]="form.get('longitude')">
+                  <input type="text" class="form-control" id="longitude" placeholder="" formControlName="longitude">
+                </app-control-messages>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="point_sale">Punto de venta</label>
+                <app-control-messages [control]="form.get('point_sale')">
+                  <input type="text" class="form-control" id="point_sale" placeholder="" formControlName="point_sale">
+                </app-control-messages>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 m-b-20" *ngIf="!cinema">
+              <label>Imágenes</label>
+              <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                style="margin-right: 10px; margin-left: 10px;"><span><i class="ion-upload m-r-5"></i>Subir imágenes</span>
+                <input type="file" class="upload" (change)="uploadFiles($event.target.files)" multiple>
+              </div>
+              <label *ngIf="totalImages > 0">{{ totalImages }}</label>
+
+              <app-control-messages [control]="form.get('files[]')">
+              </app-control-messages>
+
+            </div>
+        </div>
+
+        <span class="badge badge-info title mb-4 mt-2">Datos para la Sincronización</span>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="api_url">Api URL</label>
+                <app-control-messages [control]="form.get('api_url')">
+                  <input type="text" class="form-control" id="api_url" placeholder="" formControlName="api_url">
+                </app-control-messages>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="user">Usuario</label>
+                <app-control-messages [control]="form.get('user')">
+                  <input type="text" class="form-control" id="user" placeholder="" formControlName="user">
+                </app-control-messages>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <app-control-messages [control]="form.get('password')">
+                  <input type="password" class="form-control" id="password" placeholder="" formControlName="password"
+                    autocomplete="new-password">
+                </app-control-messages>
+              </div>
+            </div>
+        </div>
+
+        <span class="badge badge-info title mb-4">Datos para la App de Control</span>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="local_url">IP Privada</label>
+                <app-control-messages [control]="form.get('local_url')">
+                  <input type="text" class="form-control" id="local_url" placeholder="" formControlName="local_url">
+                  <small>Colocar con "http://" al inicio y tambien colocar el numero del puerto si en caso exista</small>
+                </app-control-messages>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+              <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>

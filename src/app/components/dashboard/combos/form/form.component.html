@@ -1,0 +1,78 @@
+<div class="card mb-0">
+    <div class="card-body">
+        <div class="page-header mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="">
+                    <h3>Editar</h3>
+                </div>
+                <div class="">
+                    <button class="close pull-right" (click)="bsModalRef.hide()">
+                        <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="!requestFailed" class="text-danger mb-4">{{error}}</div>
+
+        <div class="row" [formGroup]="form">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="name">Imagen (CINESTAR)</label>                                                   
+                    <div *ngIf="controls.image != null" class="text-left">
+                        <img src="{{combo.image}}" style="max-height: 120px;  max-width: 80px;">
+                    </div>
+
+                    <div class="text-left" style="padding-top: 10px">
+                        
+                        <app-control-messages [control]="form.get('image')">
+                            <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                                style="margin-right: 10px; margin-left: 0px;max-width: 200px"><span
+                                style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                                {{ form.get('image').value ? form.get('image').value.name : 'Subir imagen' }}</span>
+                                <input type="file" class="upload" (change)="uploadFile($event.target.files[0], trades.CINESTAR)">
+                            </div>
+                        </app-control-messages>
+                        
+                        <button *ngIf="controls.image != null" type="button" class="btn btn-danger btn-rounded waves-effect waves-light" style="margin-right: 10px; margin-top: 3px; margin-left: 0px;max-width: 200px" (click)="removeImage(trades.CINESTAR)">
+                            <span style="text-overflow: ellipsis;white-space: nowrap;">
+                            <i class="fa fa-trash m-r-5"></i>Eliminar imagen</span>  
+                        </button>                                                                                                                                                                                                                            
+                    </div>                                      
+                </div>
+            </div>                      
+        </div>
+
+
+        <div class="row mt-2" [formGroup]="form">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="name">Imagen (MOVIETIME)</label>
+                  
+                    <div *ngIf="controls.image2 != null" class="text-left">
+                        <img src="{{combo.image2}}" style="max-height: 120px;  max-width: 80px;">
+                    </div>
+
+                    <div class="text-left" style="padding-top: 10px">
+                        
+                        <app-control-messages [control]="form.get('image2')">
+                            <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                                style="margin-right: 10px; margin-left: 0px;max-width: 200px"><span
+                                style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                                {{ form.get('image2').value ? form.get('image2').value.name : 'Subir imagen' }}</span>
+                                <input type="file" class="upload" (change)="uploadFile($event.target.files[0], trades.MOVIETIME)">
+                            </div>
+                        </app-control-messages>
+                        
+                        <button *ngIf="controls.image2 != null" type="button" class="btn btn-danger btn-rounded waves-effect waves-light" style="margin-right: 10px; margin-top: 3px; margin-left: 0px;max-width: 200px" (click)="removeImage(trades.MOVIETIME)">
+                            <span style="text-overflow: ellipsis;white-space: nowrap;">
+                            <i class="fa fa-trash m-r-5"></i>Eliminar imagen</span>  
+                        </button>                                                                                                                                                                                                                            
+                    </div>                    
+                </div>
+            </div> 
+            <div class="col-md-12 text-right">
+                <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+            </div>                     
+        </div>       
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div [formGroup]="form">
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="title">Título</label>
+        <app-control-messages [control]="form.get('title')">
+          <input type="text" class="form-control" placeholder="" formControlName="title">
+        </app-control-messages>
+      </div>
+    </div>
+  </div>
+
+  <div class="title-flex-container" style="margin-top: 0px;">
+    <div>
+      <h6>Agregar Sección</h6>
+    </div>
+    <div>
+      <button class="btn btn-success btn-sm" title="Agregar Sección" (click)="addItem()">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <div formArrayName="items" *ngFor="let item of form.get('items')['controls']; let i = index;">
+    <div class="row" style="align-items: center;" [formGroupName]="i">
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="name">Imagen</label>
+          <div *ngIf="item.get('image_url').value != null" class="text-left">
+            <a target="_blank" href="{{item.get('image_url').value}}">
+              <img src="{{item.get('image_url').value}}" style="max-height: 100px;  max-width: 60px;">
+            </a>
+          </div>
+
+          <div class="text-left" style="padding-top: 10px">
+            <app-control-messages [control]="item.get('image')">
+              <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                style="margin-right: 10px; margin-left: 0px;max-width: 200px">
+                <span style="text-overflow: ellipsis;white-space: nowrap;">
+                  <i class="fa fa-upload m-r-5"></i>
+                  {{ item.get('image').value ? 'Seleccionado' : 'Subir imagen' }}
+                </span>
+                <input type="file" class="upload" (change)="uploadFile($event.target.files[0], item)" accept="image/png, image/jpeg, image/jpg">
+              </div>
+            </app-control-messages>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="title">Descripción</label>
+          <app-control-messages [control]="item.get('description')">
+            <textarea class="form-control" formControlName="description" style="resize: vertical;" rows="8"></textarea>
+          </app-control-messages>
+        </div>
+      </div>
+
+      <div class="col-md-1">
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-danger btn-sm" title="Eliminar" (click)="deleteItem(item)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <hr>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+    </div>
+  </div>
+
+</div>

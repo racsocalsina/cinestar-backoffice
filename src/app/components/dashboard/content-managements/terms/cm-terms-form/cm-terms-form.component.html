@@ -1,0 +1,23 @@
+<div [formGroup]="form">
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="description">Términos y Condiciones</label>
+        <app-control-messages [control]="form.get('terms')">
+          <textarea name="terms" class="form-control" formControlName="terms" style="resize: vertical;"
+            rows="20"></textarea>
+        </app-control-messages>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+    </div>
+  </div>
+
+</div>

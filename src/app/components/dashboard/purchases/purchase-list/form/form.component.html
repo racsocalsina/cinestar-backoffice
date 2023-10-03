@@ -1,0 +1,303 @@
+<div class="card mb-5">
+  <div class="card-body" [formGroup]="form">
+    <div class="page-header mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="">
+          <h3 class="font-weight-bold">{{ title }}</h3>
+        </div>
+        <div class="">
+          <button class="close pull-right" (click)="bsModalRef.hide()">
+            <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>    
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="name">ID de Compra</label>          
+          <input type="text" class="form-control text-center bg-secondary text-white" [value]="data.id" readonly>
+        </div>    
+      </div>            
+      
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="name">Sede</label>          
+          <input type="text" class="form-control" [value]="data.headquarter_name" readonly>
+        </div>    
+      </div>    
+      
+      <div class="col-md-3">       
+        <div class="form-group">
+          <label for="name">Tipo Venta</label>                    
+          <div class="tags">
+            <span *ngFor="let ts of data.sales_types; let ts_i = index" class="badge {{ts.type == 'ticket' ? 'badge-ticket' : 'badge-sweet'}}">{{ts.value}}</span>                                                                                                                                                   
+          </div>   
+        </div>
+      </div>   
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="name">Estado</label>   
+          
+          <div class="tags">                                                        
+            <span *ngIf="data.status == purchaseStatus.CONFIRMED" class="badge badge-info">{{data.status_name}}</span>
+            <span *ngIf="data.status == purchaseStatus.COMPLETED" class="badge badge-success">{{data.status_name}}</span>
+            <span *ngIf="data.status == purchaseStatus.ERROR_BILLING || data.status == purchaseStatus.ERROR_INTERNAL" class="badge badge-danger">{{data.status_name}}</span>                                                        
+          </div>   
+                    
+        </div>    
+    </div>                 
+      
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="name">Origen</label>          
+          <input type="text" class="form-control text-center" [value]="data.origin" readonly style="text-transform: capitalize;">
+        </div>    
+      </div>  
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="name">Fecha Creación de Compra</label>          
+          <input type="text" class="form-control text-center" [value]="data.created_at" readonly>
+        </div>    
+      </div>  
+
+      <div class="col-md-2">       
+        <div class="form-group">
+          <label for="name">Total</label>          
+          <input type="text" class="form-control text-right" [value]="data.total" readonly>
+        </div>
+      </div>  
+      
+      <div class="col-md-2">       
+        <div class="form-group">
+          <label for="name">Modo Invitado</label>          
+          <input type="text" class="form-control text-center" [value]="data.guest ? 'Si' : 'No'" readonly>
+        </div>
+      </div>      
+    </div>    
+    
+    <div class="row">    
+      <div class="col-md-12 text-right">       
+        <div class="form-group"> 
+          <a class="btn btn-info form-control" target="_blank" href="{{data.download_url}}" role="button">Ver PDF</a>          
+        </div>
+      </div>  
+    </div>    
+    
+    <div *ngIf="!data.guest">
+      <h4>Datos del Socio</h4>
+    
+      <div class="row">     
+        <div class="col-md-2">       
+          <div class="form-group">
+            <label for="name">Código</label>          
+            <input type="text" class="form-control text-center" [value]="data.user_code" readonly>
+          </div>
+        </div>    
+        
+        <div class="col-md-6">       
+          <div class="form-group">
+            <label for="name">Nombre</label>          
+            <input type="text" class="form-control" [value]="data.user_name" readonly>
+          </div>
+        </div>    
+      </div>                    
+    </div>
+    
+    <div *ngIf="data.ticket">
+      <h4>Datos de Boletería</h4>
+      
+      <div class="row">     
+
+        <div class="col-md-3">       
+          <div class="form-group">
+            <label for="name">N° Comprobante</label>          
+            <input type="text" class="form-control text-center" [value]="data.ticket_remote_movkey" readonly>
+          </div>
+        </div>  
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="name">Fecha Emisión del Comprobante</label>          
+            <input type="text" class="form-control text-center" [value]="data.ticket_date_issue" readonly>
+          </div>    
+        </div>  
+
+        <div class="col-md-6">       
+          <div class="form-group">
+            <label for="name">Película</label>          
+            <input type="text" class="form-control" [value]="data.movie_name" readonly>
+          </div>
+        </div>  
+                                  
+      </div>      
+      
+      <div class="row">          
+      
+        <div class="col-md-2">       
+          <div class="form-group">
+            <label for="name">Total</label>          
+            <input type="text" class="form-control text-right" [value]="data.ticket_total" readonly>
+          </div>
+        </div>  
+        
+        <div class="col-md-3">       
+          <div class="form-group">
+            <label for="name">Fecha y Hora de la función</label>          
+            <input type="text" class="form-control text-center" [value]="data.ticket_function_date" readonly>
+          </div>
+        </div>                       
+
+        <div class="col-md-2">       
+          <div class="form-group">
+            <label for="name">Puntos Obtenidos</label>          
+            <input type="text" class="form-control text-right" [value]="data.ticket_points" readonly>
+          </div>
+        </div>
+      </div>    
+      
+      <div class="row">          
+            
+        <div class="col-md-2">       
+          <div class="form-group">
+            <label for="name">N° Tickets</label>          
+            <input type="text" class="form-control text-right" [value]="data.number_tickets" readonly>
+          </div>
+        </div> 
+
+        <div class="col-md-3">       
+          <div class="form-group">
+            <label for="name">Butacas</label>          
+            <input type="text" class="form-control text-center" [value]="data.ticket_seats" readonly>
+          </div>
+        </div>
+        
+        <div class="col-md-2">       
+          <div class="form-group">
+            <label for="name">Sala</label>          
+            <input type="text" class="form-control text-center" [value]="data.ticket_room" readonly>
+          </div>
+        </div>
+      
+      </div>    
+
+      <div class="row">              
+        <div class="col-md-6">       
+          <div class="form-group">
+            <label for="name">Cantidad</label>    
+            <ul>
+              <li *ngFor="let t of data.ticket_types; let i = index">{{t.quantity + ' ' + t.name}}</li>
+            </ul>          
+          </div>
+        </div>     
+      </div>   
+    </div>         
+    
+    <div *ngIf="data.sweet">
+      <h4>Datos de Chocolatería</h4>
+      
+      <div class="row">     
+
+        <div class="col-md-3">       
+          <div class="form-group">
+            <label for="name">N° Comprobante</label>          
+            <input type="text" class="form-control text-center" [value]="data.sweet_remote_movkey" readonly>
+          </div>
+        </div>    
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="name">Fecha Emisión del Comprobante</label>          
+            <input type="text" class="form-control text-center" [value]="data.sweet_date_issue" readonly>
+          </div>    
+        </div>  
+        
+        <div class="col-md-3">       
+          <div class="form-group">
+            <label for="name">Fecha Recojo</label>          
+            <input type="text" class="form-control text-center" [value]="data.sweet_pickup_date" readonly>
+          </div>
+        </div>  
+
+        <div class="col-md-2">       
+          <div class="form-group">
+            <label for="name">Total</label>          
+            <input type="text" class="form-control text-right" [value]="data.sweet_total" readonly>
+          </div>
+        </div>  
+
+        <div class="col-md-2">       
+          <div class="form-group">
+            <label for="name">Puntos Obtenidos</label>          
+            <input type="text" class="form-control text-center" [value]="data.sweet_points" readonly>
+          </div>
+        </div> 
+
+      </div>   
+      
+      <div class="row">              
+        <div class="col-md-12">       
+          <div class="form-group">
+            <label for="name">Productos</label>   
+            <table class="products-table">
+              <tr *ngFor="let item of data.sweet_items; let i = index">
+                <td>
+                  <img src="{{item.image}}">
+                </td>
+                <td>
+                  <div class="products">
+                    <span>{{item.name}}</span>
+                    <span>x {{item.quantity}}</span>
+                    <span>S/ {{item.price}}</span>
+                  </div>   
+                </td>
+              </tr>
+            </table> 
+                                
+          </div>
+        </div>     
+      </div>         
+    </div>
+
+    <h4>Datos del Pago</h4>
+    
+    <div class="row">     
+
+      <div class="col-md-3">       
+        <div class="form-group">
+          <label for="name">Tipo de Pago</label>          
+          <input type="text" class="form-control text-center" [value]="data.payment_data?.type" readonly>
+        </div>
+      </div>    
+      
+      <div class="col-md-3">       
+        <div class="form-group">
+          <label for="name">Total</label>          
+          <input type="text" class="form-control text-center" [value]="data.payment_data.currency + ' ' + data.payment_data.total" readonly>
+        </div>
+      </div>  
+    </div>       
+    
+    <div class="row">     
+
+      <div class="col-md-6">       
+        <div class="form-group">
+          <label for="name">Nombre</label>          
+          <input type="text" class="form-control" [value]="data.payment_data?.full_name" readonly>
+        </div>
+      </div>  
+
+      <div class="col-md-6">       
+        <div class="form-group">
+          <label for="name">Tarjeta</label>          
+          <input type="text" class="form-control" [value]="data.payment_data?.card" readonly>
+        </div>
+      </div>      
+
+    </div>       
+
+
+</div>

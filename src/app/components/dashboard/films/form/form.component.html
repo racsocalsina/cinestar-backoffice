@@ -1,0 +1,80 @@
+<div class="card mb-0">
+  <div class="card-body">
+    <div class="page-header mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="">
+          <h3>{{film ? 'Editar' : 'Crear'}}</h3>
+        </div>
+        <div class="">
+          <button class="close pull-right" (click)="bsModalRef.hide()">
+            <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div [hidden]="!requestFailed" class="text-danger mb-4">{{error}}</div>
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="description">Sinopsis</label>
+          <textarea type="text" class="form-control" id="description" placeholder="" rows="7"
+            formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="country_id">País</label>
+          <app-control-messages [control]="form.get('country_id')">
+            <ng-select class="custom-ng-select" formControlName="country_id" placeholder="Seleccionar"
+              [items]="countries" bindValue="id" bindLabel="name" [searchable]="false" [clearable]="true"
+              clearAllText="Limpiar">
+            </ng-select>
+          </app-control-messages>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="country_id">Género</label>
+          <app-control-messages [control]="form.get('gender_id')">
+            <ng-select class="custom-ng-select" formControlName="gender_id" placeholder="Seleccionar" [items]="genders"
+              bindValue="id" bindLabel="name" [searchable]="false" [clearable]="true" clearAllText="Limpiar">
+            </ng-select>
+          </app-control-messages>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="premier_date">
+            Fecha de estreno
+          </label>
+          <app-control-messages [control]="form.get('premier_date')">
+            <input type="text" id="premier_date" placeholder="" class="form-control" bsDatepicker
+              formControlName="premier_date" placement="right" (bsValueChange)="onDateChange($event)"
+              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', locale: 'es' }">
+          </app-control-messages>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="url_trailer">URL del trailer</label>
+          <app-control-messages [control]="form.get('url_trailer')">
+            <input type="text" class="form-control" id="url_trailer" placeholder="" formControlName="url_trailer">
+          </app-control-messages>
+        </div>
+      </div>
+      <div class="col-md-6 m-b-20">
+        <label>Imagen</label>
+        <app-control-messages [control]="form.get('image')">
+            <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                style="margin-right: 10px; margin-left: 10px;max-width: 200px"><span
+                    style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                    {{ form.get('image').value ? form.get('image').value.name : 'Subir imagen' }}</span>
+                <input type="file" class="upload" (change)="uploadFile($event.target.files[0])"> </div>
+        </app-control-messages>
+      </div>
+      <div class="col-md-12 text-right">
+        <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

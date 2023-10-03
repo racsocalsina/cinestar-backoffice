@@ -1,0 +1,179 @@
+<div class="card mb-5">
+  <div class="card-body" [formGroup]="form">
+    <div class="page-header mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="">
+          <h3 class="font-weight-bold">{{title}}</h3>
+        </div>
+        <div class="">
+          <button class="close pull-right" (click)="bsModalRef.hide()">
+            <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>    
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="name">Código</label>          
+          <input type="text" class="form-control text-center bg-secondary text-white" [value]="data.code" readonly>          
+        </div>    
+      </div>  
+
+      <div class="col-md-10">       
+        <div class="form-group">
+          <label for="name">Nombre o Descripción</label>          
+          <input type="text" class="form-control bg-secondary text-white" [value]="data.name" readonly>          
+        </div>
+      </div>                
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="name">Válido Desde</label>          
+          <input type="text" class="form-control text-center" [value]="data.start_date" readonly>          
+        </div>    
+      </div>  
+
+      <div class="col-md-3">       
+        <div class="form-group">
+          <label for="name">Hasta</label>          
+          <input type="text" class="form-control text-center" [value]="data.end_date" readonly>          
+        </div>
+      </div>  
+      
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="name">Cadena</label>          
+          <input type="text" class="form-control" [value]="data.movie_chain_name" readonly>          
+        </div>    
+      </div>           
+    </div>
+
+    <div class="row">           
+      <div class="col-md-4">       
+        <div class="form-group">
+          <label for="name">Sede</label>          
+          <input type="text" class="form-control" [value]="data.headquarter_name" readonly>          
+        </div>
+      </div>    
+  
+      <div class="col-md-4">       
+        <div class="form-group">
+          <label for="name">Forma de Pago</label>          
+          <input type="text" class="form-control" [value]="data.payment_method_type_name"  readonly>         
+        </div>
+      </div>    
+      
+      <div class="col-md-4">       
+        <div class="form-group">
+          <label for="name">% descuento para el producto</label>          
+          <input type="text" class="form-control text-center" [value]="data.discount_rate" readonly>          
+        </div>
+      </div>  
+  </div>
+
+  <div class="row" style="padding-left: 10px;">   
+    <div class="col-md-12">       
+      <label for="name">Dias no permitidos:</label>         
+    </div> 
+  </div>
+
+  <div class="row" style="padding-left: 10px;">           
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="is_block_sunday" [checked]="data.is_block_sunday" disabled>
+      <label class="form-check-label" for="is_block_sunday">Domingo</label>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="is_block_monday" [checked]="data.is_block_monday" disabled>
+      <label class="form-check-label" for="is_block_monday">Lunes</label>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="is_block_tuesday" [checked]="data.is_block_tuesday" disabled>
+      <label class="form-check-label" for="is_block_tuesday">Martes</label>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="is_block_wednesday" [checked]="data.is_block_wednesday" disabled>
+      <label class="form-check-label" for="is_block_wednesday">Miercoles</label>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="is_block_thursday" [checked]="data.is_block_thursday" disabled>
+      <label class="form-check-label" for="is_block_thursday">Jueves</label>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="is_block_friday" [checked]="data.is_block_friday" disabled>
+      <label class="form-check-label" for="is_block_friday">Viernes</label>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="is_block_saturday" [checked]="data.is_block_saturday" disabled>
+      <label class="form-check-label" for="is_block_saturday">Sabado</label>
+    </div>      
+  </div>
+  
+  <div *ngIf="data.products?.length > 0" class="row" style="padding-top: 30px;">
+
+      <h5 style="padding-left: 20px;padding-bottom: 10px;text-decoration: underline;" class="font-weight-bold">Productos afectos a la promoción:</h5>
+    
+      <div class="col-md-12">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col" class="font-weight-bold">Código</th>
+              <th scope="col" class="font-weight-bold">Nombre</th>
+              <th scope="col" class="font-weight-bold text-right">Precio</th>
+              <th scope="col" class="font-weight-bold text-center">% Descuento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of data.products; let i = index">
+              <ng-container *ngIf="item.product_id !== null">
+                <tr>              
+                  <td>{{ item.product.code }}</td>
+                  <td>{{ item.product.name }}</td>
+                  <td class="text-right">{{ item.price }}</td>
+                  <td class="text-center">{{ item.discount_rate }}</td>              
+                </tr>          
+              </ng-container>             
+            </ng-container> 
+          </tbody>
+        </table>                    
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <app-control-messages [control]="form.get('description')">
+          <textarea name="description" id="description" rows="4" class="form-control" formControlName="description"></textarea>
+        </app-control-messages>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="this.action != this.actions.view">
+    <div class="col-md-12">
+      <div [hidden]="!requestFailed" class="text-danger mb-4">{{error}}</div>
+      <div class="row" [formGroup]="form">
+          <div class="col-md-12 m-b-20">
+              <label>Imagen</label>
+              <app-control-messages [control]="form.get('image')">
+                  <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                      style="margin-right: 10px; margin-left: 10px;max-width: 200px"><span
+                          style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                          {{ form.get('image').value ? form.get('image').value.name : 'Subir imagen' }}</span>
+                      <input type="file" class="upload" (change)="uploadFile($event.target.files[0])">
+                  </div>
+                  <p style="font-size: small;">Tamaño sugerido: 374px x 192px</p>
+              </app-control-messages>
+          </div>
+          <div class="col-md-12 text-right">
+              <button class="btn btn-primary mr-2" (click)="onClickSave()" [disabled]="isLoading">Guardar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,53 @@
+.modal-content {
+
+    .modal-header {
+        border-bottom: none;
+        padding-bottom: 0;
+
+        .outline-none {
+            outline: none;
+        }
+    }
+
+    .close {
+        padding-bottom: 0;
+    }
+
+    .modal-footer {
+        border-top: 0;
+    }
+
+}
+
+.question-modal,
+.upload-modal,
+.zone-modal,
+.category-modal,
+.attribute-modal,
+.channel-modal,
+.contract-modal,
+.pollster-modal,
+.profile-modal,
+.client-modal,
+.user-modal {
+    max-width: 700px;
+
+    .modal-header {
+        .close {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.upload-modal,
+.zone-modal,
+.category-modal,
+.attribute-modal,
+.channel-modal,
+.profile-modal {
+    max-width: 576px;
+}
+
+.upload-modal {
+    margin-top: 100px;
+}

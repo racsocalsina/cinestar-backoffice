@@ -1,0 +1,18 @@
+@import "~assets/scss/variables";
+
+.select-container {
+  max-width: 250px;
+}
+
+.scroll {
+  //max-height: 325px;
+  max-height: calc(100vh - 300px);
+  min-height: 100px;
+  max-width: 1010px;
+}
+
+.fa-spinner {
+  position: absolute;
+  left: 50%;
+  font-size: 30px;
+}

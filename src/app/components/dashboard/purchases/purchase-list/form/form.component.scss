@@ -1,0 +1,39 @@
+
+.tags span{    
+    margin: 2px;
+    padding: 6px;
+}
+
+.btn-info {
+    color: #fff;
+}
+
+h4 {
+    margin-top: 15px;
+    color: #960000;
+}
+
+.products {
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.products > span {
+    display: block;    
+}
+
+.products span:first-child {
+    font-weight: bold;
+}
+
+.products-table {
+    margin-left: 20px;
+}
+
+.products-table td {
+    vertical-align: top;
+}
+
+.products-table img {
+    margin-bottom: 10px;        
+}

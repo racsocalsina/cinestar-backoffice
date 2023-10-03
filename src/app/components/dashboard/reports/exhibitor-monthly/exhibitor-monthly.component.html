@@ -1,0 +1,268 @@
+<div class="container-fluid">
+
+    <div class="row" *ngIf="errorMessage != null">
+        <div class="col-lg-12">
+            <div class="alert {{colorMessage}} alert-dismissible fade show" role="alert">
+                <strong>
+                    <i class="mdi {{iconMessage}}" style="padding-right: 5px; font-size: 20px;"></i>                    
+                </strong> {{errorMessage}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>              
+        </div>
+    </div>    
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 module-title">
+                        <div>
+                            <h3 class="card-title mb-3 font-weight-bold">
+                                <i class="mdi mdi-calendar "></i> Informe Mensual de Exhibidor
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div [formGroup]="form" class="mb-5">
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <input type="text" id="date" placeholder="Seleccionar Año y Mes" class="form-control" formControlName="date"
+                                    bsDatepicker placement="right" (bsValueChange)="onDateChange($event)"
+                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM', locale: 'es', minMode: 'month' }" required>                                                                        
+                            </div>
+                            
+                            <div class="form-group col-md-3">    
+                                <ng-select class="custom-ng-select" formControlName="trade_name"
+                                    placeholder="Seleccionar Cadena" [items]="tradeList" bindValue="id"
+                                    bindLabel="name" [searchable]="false" [clearable]="true"
+                                    clearAllText="Limpiar">
+                                </ng-select>
+                            </div>      
+                            
+                            <div class="form-group col-md-6 text-right">
+                                <button class="btn btn-warning ml-2" (click)="onClear()">
+                                    <i class="fa fa-undo"></i> Limpiar filtros
+                                </button>
+                                <button class="btn btn-primary ml-2" (click)="search()">
+                                    <i class="fa fa-search"></i> Buscar
+                                </button>
+                            </div>
+                        </div>                                                                                                                                       
+                    </div>                                                                  
+                                           
+                    <div *ngIf="loading">
+                        <tr>
+                            <td style="height: 150px;">
+                                <div class="loader mt-5">
+                                    <div class="loader__figure"></div>
+                                    <p class="loader__label">Cargando</p>
+                                </div>     
+                            </td>
+                        </tr>                                                     
+                    </div>  
+                                           
+                    <div class="report-container" *ngIf="!loading">
+
+                        <div class="form-row">
+                            <div class="col-md-12 field-badgets text-center">                                                             
+                                <span class="badge text-dark">
+                                    <b>Año:</b> {{year}}
+                                </span>
+                                <span class="badge text-dark">
+                                    <b>Mes:</b> {{monthName}}
+                                </span>
+                                <span class="badge text-dark">
+                                    <b>Cadena:</b> {{tradeName}}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row" style="padding-top: 10px;">
+
+                            <div class="col-md-4">                                
+                                <table class="card-table" border="1" cellspacing="3" cellpadding="3" width="100%">
+                                    <tr class="title">
+                                        <td colspan="4" align="center">VENTA DE TICKETS</td>
+                                    </tr>
+                                    <tr class="subtitles">
+                                        <td></td>
+                                        <td align="center">Transaccciones Online</td>
+                                        <td align="center">Tickets Online</td>
+                                        <td align="center">Tickets por Transaccion</td>
+                                    </tr>
+                                    <tr *ngFor="let item of data.ticket_sales.items; let i = index" class="tr-items">
+                                        <td>{{item.month_name}}</td>
+                                        <td align="right">{{item.online_transactions}}</td>
+                                        <td align="right">{{item.online_tickets}}</td>
+                                        <td align="right">{{item.tickets_transaction}}</td>
+                                    </tr>
+                                    <tr class="footerx">
+                                        <td>Total</td>
+                                        <td align="right">{{data.ticket_sales.total.online_transactions}}</td>
+                                        <td align="right">{{data.ticket_sales.total.online_tickets}}</td>
+                                        <td align="right">{{data.ticket_sales.total.tickets_transaction}}</td>
+                                    </tr>
+
+                                </table>                                
+                            </div>
+
+                            <div class="col-md-4">                                
+                                <table class="card-table" border="1" cellspacing="3" cellpadding="3" width="100%">
+                                    <tr class="title">
+                                        <td colspan="5" align="center">TICKETS VENDIDOS POR CANAL</td>
+                                    </tr>
+                                    <tr class="title-two" style="height: 20px;">
+                                        <td></td>
+                                        <td align="center" colspan="2">Tickets Online</td>
+                                        <td align="center" colspan="2">% del total</td>                                                                                        
+                                    </tr>
+                                    <tr class="subtitles" style="height: 27px;">
+                                        <td></td>
+                                        <td align="center">App</td>
+                                        <td align="center">Web</td>
+                                        <td align="center">App</td>
+                                        <td align="center">Web</td>                                                
+                                    </tr>
+                                    <tr *ngFor="let item of data.tickets_by_channel.items; let i = index" class="tr-items">
+                                        <td>{{item.month_name}}</td>
+                                        <td align="right">{{item.tickets_app}}</td>
+                                        <td align="right">{{item.tickets_web}}</td>                                                
+                                        <td align="right">{{item.percent_app}}</td>
+                                        <td align="right">{{item.percent_web}}</td>
+                                    </tr>
+                                    <tr class="footerx">
+                                        <td>Total</td>
+                                        <td align="right">{{data.tickets_by_channel.total.tickets_app}}</td>
+                                        <td align="right">{{data.tickets_by_channel.total.tickets_web}}</td>
+                                        <td align="right">{{data.tickets_by_channel.total.percent_app}}</td>
+                                        <td align="right">{{data.tickets_by_channel.total.percent_web}}</td>
+                                    </tr>
+                                </table>                                   
+                            </div>
+
+                            <div class="col-md-4">                                
+                                <table class="card-table" border="1" cellspacing="3" cellpadding="3" width="100%">
+                                    <tr class="title">
+                                        <td colspan="4" align="center">% PENETRACIÓN VENTAS ONLINE</td>
+                                    </tr>
+                                    <tr class="subtitles">
+                                        <td></td>
+                                        <td align="center">Ventas Totales (Tickets)</td>
+                                        <td align="center">% de penetración</td>                                                
+                                    </tr>
+                                    <tr *ngFor="let item of data.sales_penetration.items; let i = index" class="tr-items">
+                                        <td>{{item.month_name}}</td>
+                                        <td align="right">{{item.sales}}</td>
+                                        <td align="right">{{item.percent}}</td>                                                
+                                    </tr>
+                                    <tr class="footerx">
+                                        <td>Total</td>
+                                        <td align="right">{{data.sales_penetration.total.sales}}</td>
+                                        <td align="right">{{data.sales_penetration.total.percent}}</td>                                                
+                                    </tr>
+
+                                </table>                                    
+                            </div>
+                                                                             
+                        </div>   
+
+                        <div class="form-row" style="padding-top: 30px;">
+
+                            <div class="col-md-6">                                
+                                <table class="card-table" border="1" cellspacing="3" cellpadding="3" width="100%">
+                                    <tr class="title">
+                                        <td colspan="3" align="center">TOP 10 PELÍCULAS {{monthYearTitle}}</td>
+                                    </tr>
+                                    <tr class="subtitles">                                        
+                                        <td align="center">Película</td>
+                                        <td align="center">Tickets Online</td>
+                                        <td align="center" style="width: 100px;">% del total de tickets online</td>
+                                    </tr>
+                                    <tr *ngFor="let item of data.movie_ranking.items; let i = index" class="tr-items">
+                                        <td>{{item.movie}}</td>                                        
+                                        <td align="right">{{item.online_tickets}}</td>
+                                        <td align="right">{{item.percent}}</td>
+                                    </tr>
+                                    <tr class="footerx">
+                                        <td>Total</td>                                        
+                                        <td align="right">{{data.movie_ranking.total.online_tickets}}</td>
+                                        <td align="right">{{data.movie_ranking.total.percent}}</td>
+                                    </tr>
+
+                                </table>                                
+                            </div>                          
+
+                            <div class="col-md-6">                                
+                                <table class="card-table" border="1" cellspacing="3" cellpadding="3" width="100%">
+                                    <tr class="title">
+                                        <td colspan="4" align="center">RANKING DE COMPLEJOS {{monthYearTitle}}</td>
+                                    </tr>
+                                    <tr class="subtitles">                                        
+                                        <td align="center">Complejo</td>
+                                        <td align="center">Tickets Online</td>
+                                        <td align="center" style="width: 100px;">% del total de tickets online</td>                                             
+                                        <td align="center" style="width: 100px;">% de penetración online</td>
+                                    </tr>
+                                    <tr *ngFor="let item of data.headquarter_ranking.items; let i = index" class="tr-items">
+                                        <td>{{item.headquarter}}</td>
+                                        <td align="right">{{item.online_tickets}}</td>
+                                        <td align="right">{{item.percent}}</td>
+                                        <td align="right">{{item.percent_penetration}}</td>
+                                    </tr>
+                                    <tr class="footerx">
+                                        <td>Total</td>
+                                        <td align="right">{{data.headquarter_ranking.total.online_tickets}}</td>
+                                        <td align="right">{{data.headquarter_ranking.total.percent}}</td>                                                
+                                        <td align="right">{{data.headquarter_ranking.total.percent_penetration}}</td>  
+                                    </tr>
+
+                                </table>                                    
+                            </div>                                                                             
+                        </div>                                                
+                    </div>                                               
+
+                    <div class="form-row" style="padding-top: 50px;">                        
+                        <div class="col-md-12">    
+                            <canvas id="myChart" width="1000" height="500"></canvas>    
+                        </div>
+                    </div>   
+
+                    <div *ngIf="!loading">
+                        <div class="form-row" style="padding-top: 10px;">                        
+                            <div class="col-md-12 text-center">                                    
+                                <table>
+                                    <tr>
+                                        <div *ngIf="data.tickets_evolution.total.growth_rate > 0; else elseBlock">
+                                            <td><i class="mdi mdi-menu-up text-success" style="font-size: 40px;"></i></td>
+                                            <td class="growth-rate">{{data.tickets_evolution.total.growth_rate}}% Crecimiento en venta de tickets</td>
+                                        </div>
+                                        <ng-template #elseBlock>                                    
+                                            <td><i class="mdi mdi-menu-down text-danger" style="font-size: 40px;"></i></td>
+                                            <td class="growth-rate">{{data.tickets_evolution.total.growth_rate}}% Decremento en venta de tickets</td>                                                                    
+                                        </ng-template>          
+                                    </tr>
+                                </table>                                                                                                  
+                            </div>
+                        </div>   
+    
+                        <div class="form-row" style="padding-top: 10px;" *ngIf="!loading">                        
+                            <div class="col-md-12">    
+                                <div class="alert alert-success" role="alert">
+                                    <h4 class="alert-heading">Notas</h4>
+                                    <p>
+                                        * Cada cine-semana inicia los jueves y culmina los miércoles.
+                                        <br>
+                                        ** Esta cifra representa el crecimiento/decrecimiento en la venta de tickets del año {{year}} en comparación con el año {{year-1}} hasta el mes de Diciembre
+                                    </p>                                                                
+                                  </div>
+                            </div>
+                        </div> 
+                    </div>                     
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

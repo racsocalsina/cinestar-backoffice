@@ -1,0 +1,152 @@
+<div [formGroup]="form">
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="title">Título</label>
+        <app-control-messages [control]="form.get('title')">
+          <input type="text" class="form-control" placeholder="" formControlName="title">
+        </app-control-messages>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="sub_title">Sub Título</label>
+        <app-control-messages [control]="form.get('sub_title')">
+          <input type="text" class="form-control" placeholder="" formControlName="sub_title">
+        </app-control-messages>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <app-control-messages [control]="form.get('description')">
+          <textarea name="description" class="form-control" formControlName="description" style="resize: vertical;"
+            rows="4"></textarea>
+        </app-control-messages>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="terms">Condiciones</label>
+        <app-control-messages [control]="form.get('terms')">
+          <textarea name="terms" class="form-control" formControlName="terms" style="resize: vertical;"
+            rows="4"></textarea>
+        </app-control-messages>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="name">Imagen</label>
+        <div *ngIf="data.image != null" class="text-left">
+          <a target="_blank" href="{{data.image}}">
+            <img src="{{data.image}}" style="max-height: 120px;  max-width: 80px;">
+          </a>
+        </div>
+
+        <div class="text-left" style="padding-top: 10px">
+          <app-control-messages [control]="form.get('image')">
+            <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+              style="margin-right: 10px; margin-left: 0px;max-width: 200px"><span
+                style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                {{ form.get('image').value ? 'Seleccionado': 'Subir imagen' }}</span>
+              <input type="file" class="upload" (change)="uploadFileImage($event.target.files[0])" accept="image/png, image/jpeg, image/jpg">
+            </div>
+          </app-control-messages>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 mt-2">
+        <div class="form-group">
+          <label for="name">Archivo PDF (Términos y Condiciones)</label>
+          <div *ngIf="data.file != null" class="text-left">
+            <a target="_blank" href="{{data.file}}">Terminos-y-condiciones.pdf</a>
+          </div>
+
+          <div class="text-left" style="padding-top: 10px">
+            <app-control-messages [control]="form.get('image')">
+              <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                style="margin-right: 10px; margin-left: 0px;max-width: 200px"><span
+                  style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                  {{ form.get('file').value ? 'Seleccionado': 'Subir PDF' }}</span>
+                <input type="file" class="upload" (change)="uploadFilePDF($event.target.files[0])" accept="application/pdf">
+              </div>
+            </app-control-messages>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="title-flex-container">
+    <div>
+      <h6>Beneficios</h6>
+    </div>
+    <div>
+      <button class="btn btn-success btn-sm" title="Agregar Beneficio" (click)="addItem()">
+        <i class="fa fa-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <div formArrayName="benefits" *ngFor="let item of form.get('benefits')['controls']; let i = index;">
+    <div class="row" style="align-items: center;" [formGroupName]="i">
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="name">Imagen</label>
+          <div *ngIf="item.get('image_url').value != null" class="text-left">
+            <a target="_blank" href="{{item.get('image_url').value}}">
+              <img src="{{item.get('image_url').value}}" style="max-height: 100px;  max-width: 60px;">
+            </a>
+          </div>
+
+          <div class="text-left" style="padding-top: 10px">
+            <app-control-messages [control]="item.get('image')">
+              <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                style="margin-right: 10px; margin-left: 0px;max-width: 200px">
+                <span style="text-overflow: ellipsis;white-space: nowrap;">
+                  <i class="fa fa-upload m-r-5"></i>
+                  {{ item.get('image').value ? 'Seleccionado' : 'Subir imagen' }}
+                </span>
+                <input type="file" class="upload" (change)="uploadFile($event.target.files[0], item)" accept="image/png, image/jpeg, image/jpg">
+              </div>
+            </app-control-messages>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="title">Título descriptivo</label>
+          <app-control-messages [control]="item.get('title')">
+            <input type="text" class="form-control" placeholder="" formControlName="title">
+          </app-control-messages>
+        </div>
+      </div>
+
+      <div class="col-md-1">
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-danger btn-sm" title="Eliminar" (click)="deleteItem(item)">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <hr>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+    </div>
+  </div>
+
+</div>

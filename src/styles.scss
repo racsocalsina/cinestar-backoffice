@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/material.theme.css";
+@import '~ngx-ui-switch/ui-switch.component.scss';
+@import "~assets/css/style.css";
+@import "~assets/css/default-dark.css";
+@import '~ngx-bootstrap/datepicker/bs-datepicker.css';
+@import "~assets/css/fontawesome-all.css";
+@import "~assets/fonts/themify-icons/themify-icons.css";
+@import "~assets/fonts/material-design-iconic-font/css/materialdesignicons.min.css";
+@import "~assets/icons/simple-line-icons/css/simple-line-icons.css";
+@import "assets/scss/variables";
+/*@import "~assets/scss/bootstrap";*/
+@import "assets/fonts/index.css";
+@import "~assets/scss/breakpoints";
+@import "~assets/scss/fonts";
+@import "~assets/scss/modals";
+@import "~assets/scss/preloader";
+@import "~assets/scss/perfect-scrollbar";
+@import "~assets/scss/ng-select";
+@import "~assets/scss/utils";
+@import "~assets/scss/custom";
+
+body {
+  font-family: 'HelveticaNeue', sans-serif;
+}
+
+.btn {
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.clear-filters {
+  font-size: 20px;
+}
+
+.switch {
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+}
+

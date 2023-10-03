@@ -1,0 +1,89 @@
+<div class="card mb-0">
+    <div class="card-body">
+        <div class="page-header mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="">
+                    <h3>{{banner ? 'Editar' : 'Crear'}}</h3>
+                </div>
+                <div class="">
+                    <button class="close pull-right" (click)="bsModalRef.hide()">
+                        <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="!requestFailed" class="text-danger mb-4">{{error}}</div>
+        <div class="row" [formGroup]="form">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="trade_name">Proyecto</label>
+                    <app-control-messages [control]="form.get('trade_name')">
+                        <ng-select class="custom-ng-select" formControlName="trade_name" placeholder="Seleccionar"
+                            [items]="tradeList" bindValue="id" bindLabel="name" [searchable]="false">
+                        </ng-select>
+                    </app-control-messages>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name">Tipo</label>
+                    <app-control-messages [control]="form.get('type')">
+                        <ng-select class="custom-ng-select" formControlName="type" placeholder="Seleccionar"
+                            [items]="typeList" bindValue="id" bindLabel="name" [searchable]="false" [clearable]="true"
+                            clearAllText="Limpiar" (change)="changeType()">
+                        </ng-select>
+                    </app-control-messages>
+                </div>
+            </div>
+            <div class="col-md-6" *ngIf="form.get('type').value != 'movil'">
+                <div class="form-group">
+                    <label for="name">Página</label>
+                    <app-control-messages [control]="form.get('page')">
+                        <ng-select class="custom-ng-select" formControlName="page" placeholder="Seleccionar"
+                            [searchable]="false" [clearable]="true" [items]="pageList" clearAllText="Limpiar"
+                            bindValue="id" bindLabel="name">
+                        </ng-select>
+                    </app-control-messages>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="short">Link</label>
+                    <app-control-messages [control]="form.get('link')">
+                        <input class="form-control" id="link" formControlName="link">
+                    </app-control-messages>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label>Imagen</label>
+                <app-control-messages [control]="form.get('image')">
+                    <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                        style="margin-right: 10px; margin-left: 10px;max-width: 200px"><span
+                            style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                            {{ form.get('image').value ? form.get('image').value.name : 'Subir imagen' }}</span>
+                        <input type="file" class="upload" (change)="uploadFile($event.target.files[0])">
+                    </div>
+                    <p *ngIf="form.get('type').value != null" style="font-size: small;">Tamaño sugerido: {{
+                        getDimensions() }}</p>
+                </app-control-messages>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <app-control-messages [control]="form.get('download_app')">
+                        <div class="form-check">
+                            <input class="form-check-input is-invalid" type="checkbox" value="" id="download_app"
+                                formControlName="download_app">
+                            <label for="download_app">
+                                Descargar App
+                            </label>
+                        </div>
+                    </app-control-messages>
+                </div>
+            </div>
+            <div class="col-md-12 text-right">
+                <button class="btn btn-primary mr-2" (click)="onClickSave()" [disabled]="isLoading">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

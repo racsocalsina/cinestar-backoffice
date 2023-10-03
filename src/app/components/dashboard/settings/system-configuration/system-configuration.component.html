@@ -1,0 +1,335 @@
+<div class="container-fluid">
+
+    <div class="row" *ngIf="textMessage">
+        <div class="col-lg-12">
+            <div class="alert {{colorMessage}} alert-dismissible fade show" role="alert">
+                <strong>
+                    <i class="mdi {{iconMessage}}" style="padding-right: 5px; font-size: 20px;"></i>
+                </strong> {{textMessage}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="loading">
+        <tr>
+            <td style="height: 150px;">
+                <div class="loader mt-5">
+                    <div class="loader__figure"></div>
+                    <p class="loader__label">Cargando</p>
+                </div>
+            </td>
+        </tr>
+    </div>
+
+    <div class="row" *ngIf="!loading">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body" [formGroup]="form">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 module-title">
+                        <div>
+                            <h3 class="card-title mb-3 font-weight-bold">
+                                <i class="mdi mdi-settings"></i> Variables del Sistema
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="max_minutes_to_buy">Minutos maximos para la compra de boletos</label>
+                                <app-control-messages [control]="form.get('max_minutes_to_buy')">
+                                    <input type="number" class="form-control" id="max_minutes_to_buy" placeholder=""
+                                        formControlName="max_minutes_to_buy">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="system_days_to_delete">Dias transcurridos para eliminar registros no
+                                    completados</label>
+                                <app-control-messages [control]="form.get('system_days_to_delete')">
+                                    <input type="number" class="form-control" id="system_days_to_delete" placeholder=""
+                                        formControlName="system_days_to_delete">
+                                    <small id="system_days_to_delete" class="form-text text-muted">
+                                        Registros de compras con estado draft (borrador) que no termino el flujo de
+                                        pago.
+                                    </small>
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="cinestar_support_email">Correos de soporte (Cinestar)</label>
+                                <app-control-messages [control]="form.get('cinestar_support_email')">
+                                    <input type="text" class="form-control" id="cinestar_support_email" placeholder=""
+                                        formControlName="cinestar_support_email">
+                                    <small id="cinestar_support_email" class="form-text text-muted">
+                                        Se aceptan múltiples correos separados por comas
+                                    </small>
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="movietime_support_email">Correos de soporte (Movietime)</label>
+                                <app-control-messages [control]="form.get('movietime_support_email')">
+                                    <input type="text" class="form-control" id="movietime_support_email" placeholder=""
+                                        formControlName="movietime_support_email">
+                                    <small id="movietime_support_email" class="form-text text-muted">
+                                        Se aceptan múltiples correos separados por comas
+                                    </small>
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="system_support_emails">Correos del administrador del sistema</label>
+                                <app-control-messages [control]="form.get('system_support_emails')">
+                                    <input type="text" class="form-control" id="system_support_emails" placeholder=""
+                                        formControlName="system_support_emails">
+                                    <small id="system_support_emails" class="form-text text-muted">
+                                        Se aceptan múltiples correos separados por comas, este correo es para notificar
+                                        los errores ocurridos en el sistema
+                                    </small>
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <app-control-messages [control]="form.get('send_email_internal_errors')">
+                                    <div class="form-check">
+                                        <input class="form-check-input is-invalid" type="checkbox" value=""
+                                            id="send_email_internal_errors"
+                                            formControlName="send_email_internal_errors">
+                                        <label for="send_email_internal_errors">Enviar emails de errores de la sede
+                                            (job_triggers)</label>
+                                    </div>
+                                </app-control-messages>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <app-control-messages [control]="form.get('accumulate_points')">
+                                    <div class="form-check">
+                                        <input class="form-check-input is-invalid" type="checkbox" value=""
+                                            id="accumulate_points"
+                                            formControlName="accumulate_points">
+                                        <label for="accumulate_points">Acumular Puntos</label>
+                                    </div>
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="url_info_receipt">Link para consultar comprobantes electronicos</label>
+                                <app-control-messages [control]="form.get('url_info_receipt')">
+                                    <input type="text" class="form-control" id="url_info_receipt" placeholder=""
+                                        formControlName="url_info_receipt">
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="badge badge-warning title">Datos del API del Facturador</span>
+
+                    <h6 style="padding-bottom: 10px; padding-top: 15px; font-weight: bold">Top Rank</h6>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fe_api_url_top_rank">Dirección url</label>
+                                <app-control-messages [control]="form.get('fe_api_url_top_rank')">
+                                    <input type="text" class="form-control" id="fe_api_url_top_rank" placeholder=""
+                                        formControlName="fe_api_url_top_rank">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fe_token_top_rank">Token</label>
+                                <app-control-messages [control]="form.get('fe_token_top_rank')">
+                                    <input type="text" class="form-control" id="fe_token_top_rank" placeholder=""
+                                        formControlName="fe_token_top_rank">
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 style="padding-bottom: 10px; padding-top: 15px; font-weight: bold">Star Plaza</h6>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fe_api_url_star_plaza">Dirección url</label>
+                                <app-control-messages [control]="form.get('fe_api_url_star_plaza')">
+                                    <input type="text" class="form-control" id="fe_api_url_star_plaza" placeholder=""
+                                        formControlName="fe_api_url_star_plaza">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fe_token_star_plaza">Token</label>
+                                <app-control-messages [control]="form.get('fe_token_star_plaza')">
+                                    <input type="text" class="form-control" id="fe_token_star_plaza" placeholder=""
+                                        formControlName="fe_token_star_plaza">
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <span class="badge badge-info title">Datos de la pasarela de pago (PayU)</span>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="payu_url_transaction_process">Url Transaction Process</label>
+                                <app-control-messages [control]="form.get('payu_url_transaction_process')">
+                                    <input type="text" class="form-control" id="payu_url_transaction_process"
+                                        placeholder="" formControlName="payu_url_transaction_process">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="payu_url_queries">Url Queries</label>
+                                <app-control-messages [control]="form.get('payu_url_queries')">
+                                    <input type="text" class="form-control" id="payu_url_queries" placeholder=""
+                                        formControlName="payu_url_queries">
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <app-control-messages [control]="form.get('payu_test')">
+                                    <div class="form-check">
+                                        <input class="form-check-input is-invalid" type="checkbox" value=""
+                                            id="payu_test" formControlName="payu_test">
+                                        <label for="payu_test">Modo de pruebas</label>
+                                    </div>
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 style="padding-bottom: 10px; padding-top: 15px; font-weight: bold">Top Rank</h6>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_top_rank_api_key">Api Key</label>
+                                <app-control-messages [control]="form.get('payu_top_rank_api_key')">
+                                    <input type="text" class="form-control" id="payu_top_rank_api_key" placeholder=""
+                                        formControlName="payu_top_rank_api_key">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_top_rank_api_login">Api Login</label>
+                                <app-control-messages [control]="form.get('payu_top_rank_api_login')">
+                                    <input type="text" class="form-control" id="payu_top_rank_api_login" placeholder=""
+                                        formControlName="payu_top_rank_api_login">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_top_rank_account_id">Account Id</label>
+                                <app-control-messages [control]="form.get('payu_top_rank_account_id')">
+                                    <input type="text" class="form-control" id="payu_top_rank_account_id" placeholder=""
+                                        formControlName="payu_top_rank_account_id">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_top_rank_merchant_id">Merchant Id</label>
+                                <app-control-messages [control]="form.get('payu_top_rank_merchant_id')">
+                                    <input type="text" class="form-control" id="payu_top_rank_merchant_id"
+                                        placeholder="" formControlName="payu_top_rank_merchant_id">
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 style="padding-bottom: 10px; padding-top: 15px; font-weight: bold">Star Plaza</h6>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_star_plaza_api_key">Api Key</label>
+                                <app-control-messages [control]="form.get('payu_star_plaza_api_key')">
+                                    <input type="text" class="form-control" id="payu_star_plaza_api_key" placeholder=""
+                                        formControlName="payu_star_plaza_api_key">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_star_plaza_api_login">Api Login</label>
+                                <app-control-messages [control]="form.get('payu_star_plaza_api_login')">
+                                    <input type="text" class="form-control" id="payu_star_plaza_api_login"
+                                        placeholder="" formControlName="payu_star_plaza_api_login">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_star_plaza_account_id">Account Id</label>
+                                <app-control-messages [control]="form.get('payu_star_plaza_account_id')">
+                                    <input type="text" class="form-control" id="payu_star_plaza_account_id"
+                                        placeholder="" formControlName="payu_star_plaza_account_id">
+                                </app-control-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="payu_star_plaza_merchant_id">Merchant Id</label>
+                                <app-control-messages [control]="form.get('payu_star_plaza_merchant_id')">
+                                    <input type="text" class="form-control" id="payu_star_plaza_merchant_id"
+                                        placeholder="" formControlName="payu_star_plaza_merchant_id">
+                                </app-control-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

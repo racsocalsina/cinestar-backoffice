@@ -1,0 +1,60 @@
+<header class="topbar">
+  <nav class="navbar top-navbar navbar-expand-md navbar-light">
+    <!-- ============================================================== -->
+    <!-- Logo -->
+    <!-- ============================================================== -->
+    <div class="navbar-header text-center">
+      <a class="navbar-brand" routerLink="/">
+        <img src="./assets/images/logo-navbar.png" alt="homepage" class="main-logo"
+          style="padding: 8px;max-height: 80px;" />
+        <img src="./assets/images/logo-icon.png" alt="homepage" class="icon-logo"
+          style="padding: 8px;max-height: 80px; display: none;" />
+      </a>
+    </div>
+    <div class="navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <!-- This is  -->
+        <li class="nav-item">
+          <!-- *ngIf="!userService.User.isClient" -->
+          <a (click)="navToggler()" class="nav-link nav-toggler d-md-none waves-effect waves-dark"
+            href="javascript:void(0)">
+            <i class="ti-menu"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <!-- *ngIf="!userService.User.isClient" -->
+          <a (click)="sidebarToggler()" class="nav-link sidebartoggler d-none d-md-block waves-effect waves-dark"
+            href="javascript:void(0)">
+            <i class="ti-menu"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav my-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle waves-effect waves-dark" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <img src="./assets/images/placeholder-avatar.jpg" alt="user" class="profile-pic" />
+          </a>
+          <div class="dropdown-menu dropdown-menu-right animated flipInY">
+            <ul class="dropdown-user">
+              <li>
+                <div class="dw-user-box">
+                  <div class="u-img">
+                    <img src="./assets/images/placeholder-avatar.jpg" alt="user">
+                  </div>
+                  <div class="u-text">
+                    <h4>{{ user.name }} {{ user.lastname }}</h4>
+                    <p class="text-muted">{{ user.email }}</p>
+                    <button class="btn btn-rounded btn-danger btn-sm">{{ user.role_display_name }}</button>
+                  </div>
+                </div>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li (click)="onClickLogout()"><span><i class="fa fa-power-off"></i> Cerrar Sesión</span></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

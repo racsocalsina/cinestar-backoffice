@@ -1,0 +1,205 @@
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li *ngIf="sharedService.checkPermission('read-user')">
+                    <a routerLink="/users-admin" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-account-multiple"></i> <span class="hide-menu">Usuarios</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-headquarter')">
+                    <a routerLink="/cinemas" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-movie"></i> <span class="hide-menu">Cines</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-movie')">
+                    <a routerLink="/films" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-filmstrip"></i> <span class="hide-menu">Peliculas</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-moviegenre')">
+                    <a routerLink="/genre" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-filmstrip"></i> <span class="hide-menu">Géneros</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-roomtype')">
+                    <a routerLink="/rooms" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-store"></i> <span class="hide-menu">Tipos de salas</span>
+                    </a>
+                </li>
+
+                <li *ngIf="sharedService.checkPermission('read-banner')" id="banners" (click)="activeMenu('banners')">
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:" aria-expanded="false">
+                        <i class="mdi mdi-image-multiple"></i><span class="hide-menu">Banners</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a routerLink="/banners" routerLinkActive="active">
+                                Banners
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/popup-banner" routerLinkActive="active">
+                                Popup Banner
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-country')">
+                    <a routerLink="/countries" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-flag"></i> <span class="hide-menu">Países</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-city')">
+                    <a routerLink="/cities" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-city"></i> <span class="hide-menu">Ciudades</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-product')">
+                    <a routerLink="/products" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-popcorn"></i> <span class="hide-menu">Productos</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-combo')">
+                    <a routerLink="/combos" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-popcorn"></i> <span class="hide-menu">Combos</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-reports')">
+                    <a routerLink="/purchases" class=" waves-effect waves-dark" routerLinkActive="active">
+                        <i class="mdi mdi-table-column-width"></i> <span class="hide-menu">Compras</span>
+                    </a>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-promotion')" id="promotions"
+                    (click)="activeMenu('promotions')">
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:" aria-expanded="false">
+                        <i class="mdi mdi-sale"></i><span class="hide-menu">Promociones</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a routerLink="/ticket-promotions" routerLinkActive="active">
+                                Boletería
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/choco-promotions" routerLinkActive="active">
+                                Chocolatería
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-promotion')" id="awards" (click)="activeMenu('awards')">
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:" aria-expanded="false">
+                        <i class="mdi mdi-trophy"></i><span class="hide-menu">Premios</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a routerLink="/ticket-awards" routerLinkActive="active">
+                                Boletería
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/choco-awards" routerLinkActive="active">
+                                Chocolatería
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="sharedService.checkPermission('read-reports')"id="reports" (click)="activeMenu('reports')">
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:" aria-expanded="false">
+                        <i class="mdi mdi-file-chart"></i><span class="hide-menu">Reportes</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a routerLink="/clients" routerLinkActive="active">
+                                Clientes
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/tickets" routerLinkActive="active">
+                                Boletería
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/choco-reports" routerLinkActive="active">
+                                Chocolatería
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/clients-ranking" routerLinkActive="active">
+                                Ranking
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/reports/exhibitor-monthly" routerLinkActive="active">
+                                Informe Mensual de Exhibidor
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/reports/qr" routerLinkActive="active">
+                                Lecturas QR
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="sharedService.checkPermission('create-user')" id="logs" (click)="activeMenu('logs')">
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:" aria-expanded="false">
+                        <i class="mdi mdi-sync"></i><span class="hide-menu">Logs</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a routerLink="/logs/internal-errors" routerLinkActive="active">
+                                Job Triggers
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="sharedService.checkPermission('create-user')" id="settings" (click)="activeMenu('settings')">
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:" aria-expanded="false">
+                        <i class="mdi mdi-settings"></i><span class="hide-menu">Configuraciones</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a routerLink="/settings/system-configurations" routerLinkActive="active">
+                                Variables del sistema
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/settings/erp-system-vars" routerLinkActive="active">
+                                Variables del ERP
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="sharedService.checkPermission('update-contentmanagement')" id="content-managements" (click)="activeMenu('content-managements')">
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:" aria-expanded="false">
+                        <i class="mdi mdi-web"></i><span class="hide-menu">Gestión de contenido</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a routerLink="/content-managements/partner" routerLinkActive="active">Socios</a>
+                        </li>
+                        <li>
+                            <a routerLink="/content-managements/corporate" routerLinkActive="active">Corporativo</a>
+                        </li>
+                        <li>
+                            <a routerLink="/content-managements/about" routerLinkActive="active">Quiénes Somos</a>
+                        </li>
+                        <li>
+                            <a routerLink="/content-managements/terms" routerLinkActive="active">Términos y Condiciones</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li>
+          <a routerLink="/notifications" class=" waves-effect waves-dark" routerLinkActive="active">
+            <i class="mdi mdi-message"></i> <span class="hide-menu">Notificaciones</span>
+          </a>
+        </li> -->
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>

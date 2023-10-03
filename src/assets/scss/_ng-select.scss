@@ -1,0 +1,54 @@
+
+.has-danger {
+    .ng-select .ng-select-container {
+        border-color: #EF5350;
+    }
+}
+
+.custom-ng-select {
+  padding-bottom: 0;
+  .ng-value-container {
+    border-top: none!important;
+    padding: .2370em 0!important;
+  }
+  .ng-has-value {
+    .ng-placeholder {
+      display: none!important;
+    }
+  }
+    &.ng-select .ng-select-container {
+        // border-radius: 15px;
+        height: 28px;
+        min-height: 28px;
+        font-size: 16px;
+        //color: $color-blue-dark;
+        font-weight: bold;
+
+    }
+
+    &.multi.ng-select .ng-select-container {
+        min-height: 28px;
+        height: auto;
+    }
+
+    &.ng-select.ng-select-opened > .ng-select-container .ng-arrow {
+        border-color: transparent transparent #3FC17A;
+        border-width: 0 8px 13px;
+    }
+
+    &.ng-select .ng-arrow-wrapper .ng-arrow {
+        border-color: #3FC17A transparent transparent;
+        border-width: 13px 8px 0.5px;
+    }
+
+    &.filter {
+
+        &.ng-select.ng-select-opened > .ng-select-container .ng-arrow {
+            border-width: 0 5px 5px;
+        }
+
+        &.ng-select .ng-arrow-wrapper .ng-arrow {
+            border-width: 5px 5px 0.5px;
+        }
+    }
+}

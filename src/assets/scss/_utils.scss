@@ -1,0 +1,20 @@
+@import "~assets/scss/fonts";
+@import "~assets/scss/variables";
+@import "~assets/scss/breakpoints";
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.readonly-white.form-control[readonly] {
+    background-color: white;
+}
+
+.control-message-error {
+    .invalid-feedback {
+        display: block !important;
+        text-align: left !important;
+        margin-left: 10px;
+        color: $red !important;
+    }
+}

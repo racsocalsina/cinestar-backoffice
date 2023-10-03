@@ -1,0 +1,54 @@
+<div class="card mb-0">
+    <div class="card-body">
+        <div class="page-header mb-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-2 module-title">
+                <div>
+                    <h4 class="card-title mb-0">Lista de imágenes</h4>
+                </div>
+                <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+                    style="margin-right: 10px; margin-left: 10px;"><span><i class="ion-upload m-r-5"></i>Agregar
+                        imagen</span>
+                    <input type="file" class="upload" (change)="uploadFile($event.target.files[0])">
+                </div>
+                <div class="">
+                    <button class="close pull-right" (click)="bsModalRef.hide()">
+                        <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <perfect-scrollbar class="scroll">
+            <div class="table-container">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Principal</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container>
+                            <tr *ngFor="let image of images; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td><img src="{{image.path}}" style="max-height: 120px;  max-width: 100px;"></td>
+                                <td> {{ image.is_main_image ? 'Sí' : 'No' }}</td>
+                                <td>
+                                    <button *ngIf="!image.is_main_image" class="btn btn-warning btn-sm mr-1"
+                                        (click)="onClickEdit(image.id)" title="Marcar como principal">
+                                        <i class="fa fa-thumbtack"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" title="Eliminar imagen"
+                                        (click)="onClickDelete(image.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </perfect-scrollbar>
+    </div>
+</div>

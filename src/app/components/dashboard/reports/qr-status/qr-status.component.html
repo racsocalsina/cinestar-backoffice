@@ -1,0 +1,220 @@
+<div class="container-fluid">
+
+    <div class="row" *ngIf="errorMessage != null">
+        <div class="col-lg-12">
+            <div class="alert {{colorMessage}} alert-dismissible fade show" role="alert">
+                <strong>
+                    <i class="mdi {{iconMessage}}" style="padding-right: 5px; font-size: 20px;"></i>
+                </strong> {{errorMessage}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 module-title">
+                        <div>
+                            <h3 class="card-title mb-3 font-weight-bold">
+                                <i class="mdi mdi-qrcode"></i> Lecturas QR
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div [formGroup]="form" class="mb-5">
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <input type="text" id="code" placeholder="Número de comprobante" class="form-control" formControlName="code" required>
+                            </div>
+
+                            <div class="form-group col-md-9 text-left">
+                                <button class="btn btn-warning ml-2" (click)="onClear()">
+                                    <i class="fa fa-undo"></i> Limpiar filtros
+                                </button>
+                                <button class="btn btn-primary ml-2" (click)="search()">
+                                    <i class="fa fa-search"></i> Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="loading">
+                        <tr>
+                            <td style="height: 150px;">
+                                <div class="loader mt-2">
+                                    <div class="loader__figure"></div>
+                                    <p class="loader__label">Cargando</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
+
+                    <div class="report-container" *ngIf="!loading && data">
+
+                        <div class="card mb-3" *ngIf="data.sold_item_type == 'ticket'">
+                            <div class="card-header">N° COMPROBANTE: {{data.id}}</div>
+                            <div class="row g-0">
+                              <div class="col-md-3 mt-1">
+                                <img src="{{data.movie_image}}" alt="Película">
+                              </div>
+                              <div class="col-md-9">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Tipo</h5>
+                                                <p class="card-text">Boletería</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Cine</h5>
+                                                <p class="card-text">{{data.cinema.name}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Dirrección</h5>
+                                                <p class="card-text">{{data.cinema.address}}</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Película</h5>
+                                                <p class="card-text">{{data.movie_name}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Fecha</h5>
+                                                <p class="card-text">{{data.movie_time_date}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Hora</h5>
+                                                <p class="card-text">{{data.movie_time_hour}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Sala</h5>
+                                                <p class="card-text">{{data.room}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Butacas</h5>
+                                                <p class="card-text">{{data.reserves}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Cantidad y tipos de entradas</h5>
+                                                <p *ngFor="let item of data.tickets; let i = index" class="card-text">{{item}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <h5 class="card-title">Estado</h5>
+                                                <span *ngIf="data.read==1" class="badge badge-success title">LEÍDO</span>
+                                                <span *ngIf="data.read==0" class="badge badge-danger title">NO LEÍDO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3" *ngIf="data.sold_item_type == 'sweet'">
+                            <div class="card-header">N° COMPROBANTE: {{data.id}}</div>
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h5 class="card-title">Tipo</h5>
+                                            <p class="card-text">Chocolatería</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5 class="card-title">Cine</h5>
+                                            <p class="card-text">{{data.cinema.name}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h5 class="card-title">Dirrección</h5>
+                                            <p class="card-text">{{data.cinema.address}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <h5 class="card-title">Fecha</h5>
+                                            <p class="card-text">{{data.date}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5 class="card-title">Estado</h5>
+                                            <span *ngIf="data.read==1" class="badge badge-success title">LEÍDO</span>
+                                            <span *ngIf="data.read==0" class="badge badge-danger title">NO LEÍDO</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <h5 class="card-title">Productos</h5>
+
+                                            <table class="products-table">
+                                                <tr *ngFor="let item of data.items; let i = index">
+                                                  <td>
+                                                    <img src="{{item.image}}" alt="imagen del producto" width="50">
+                                                  </td>
+                                                  <td>
+                                                    <div class="products">
+                                                      <span>{{item.name}}</span>
+                                                      <span>x {{item.quantity}}</span>
+                                                    </div>
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

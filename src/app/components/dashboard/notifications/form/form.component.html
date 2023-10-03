@@ -1,0 +1,51 @@
+<div class="card mb-0">
+  <div class="card-body">
+    <div class="page-header mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class=""><h3>{{notification ? 'Editar' : 'Crear'}}</h3></div>
+        <div class="">
+          <button class="close pull-right" (click)="bsModalRef.hide()">
+            <span aria-hidden="true">  <i class="mdi mdi-close"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row" [formGroup]="form">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="title">Título</label>
+          <input type="text" class="form-control" id="title" placeholder="">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea name="description" class="form-control" id="description"></textarea>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="duration">Duración</label>
+          <timepicker id="duration" formControlName="duration" [hoursPlaceholder]="hoursPlaceholder"
+                      [minutesPlaceholder]="minutesPlaceholder" [hourStep]="1" [minuteStep]="1" [secondsStep]="1"
+                      [secondsPlaceholder]="secondsPlaceholder" showSeconds="true" [showMeridian]="false"></timepicker>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="date">
+            Fecha de estreno
+          </label>
+          <input type="text" id="date"
+                 placeholder=""
+                 class="form-control"
+                 bsDatepicker>
+        </div>
+      </div>
+      <div class="col-md-12 text-right">
+        <button class="btn btn-primary mr-2">Guardar</button>
+        <button class="btn btn-danger ml-2">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

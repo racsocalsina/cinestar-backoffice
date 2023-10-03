@@ -1,0 +1,68 @@
+<div class="container-fluid">
+
+  <div class="row" *ngIf="textMessage">
+    <div class="col-lg-12">
+      <div class="alert {{colorMessage}} alert-dismissible fade show" role="alert">
+        <strong>
+          <i class="mdi {{iconMessage}}" style="padding-right: 5px; font-size: 20px;"></i>
+        </strong> {{textMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading">
+    <tr>
+      <td style="height: 150px;">
+        <div class="loader mt-5">
+          <div class="loader__figure"></div>
+          <p class="loader__label">Cargando</p>
+        </div>
+      </td>
+    </tr>
+  </div>
+
+  <div class="row" *ngIf="!loading">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 module-title">
+            <div>
+              <h3 class="card-title mb-3 font-weight-bold">
+                <i class="mdi mdi-image-album"></i> Popup Banner
+              </h3>
+            </div>
+          </div>
+
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button (click)="selectTab('cinestar')" class="nav-link"
+                [ngClass]="tabSelected == 'cinestar' ? 'active activetb' : ''" data-bs-toggle="tab" type="button"
+                role="tab" aria-selected="true">Cinestar</button>
+              <button (click)="selectTab('movietime')" class="nav-link"
+                [ngClass]="tabSelected == 'movietime' ? 'active activetb' : ''" data-bs-toggle="tab" type="button"
+                role="tab" aria-selected="false">MovieTime</button>
+            </div>
+          </nav>
+
+          <div class="tab-content">
+            <div [hidden]="tabSelected != 'cinestar'" class="tab-pane fade"
+              [ngClass]="tabSelected == 'cinestar' ? 'show active' : ''" role="tabpanel">
+              <app-popup-banner-form [data]="cinestarData" (eventShowAlert)="showAlert($event)"
+                (eventClearMessage)="clearMessage()"></app-popup-banner-form>
+            </div>
+            <div [hidden]="tabSelected != 'movietime'" class="tab-pane fade"
+              [ngClass]="tabSelected == 'movietime' ? 'show active' : ''" role="tabpanel">
+              <app-popup-banner-form [data]="movietimeData" (eventShowAlert)="showAlert($event)"
+                (eventClearMessage)="clearMessage()"></app-popup-banner-form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,98 @@
+<div class="card mb-5">
+  <div class="card-body" [formGroup]="form">
+    <div class="page-header mb-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="">
+          <h3 class="font-weight-bold">Datos del Error</h3>
+        </div>
+        <div class="">
+          <button class="close pull-right" (click)="bsModalRef.hide()">
+            <span aria-hidden="true"> <i class="mdi mdi-close"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>    
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="name">Fecha y Hora</label>          
+          <input type="text" class="form-control text-center bg-secondary text-white" [value]="data.created_at" readonly>          
+        </div>    
+      </div>            
+    </div>  
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name">Sede</label>          
+          <input type="text" class="form-control text-left" [value]="data.headquarter_name" readonly>          
+        </div>    
+      </div>  
+
+      <div class="col-md-3">       
+        <div class="form-group">
+          <label for="name">BD</label>          
+          <input type="text" class="form-control" [value]="data.db_name" readonly>          
+        </div>
+      </div>                
+
+      <div class="col-md-3">       
+        <div class="form-group">
+          <label for="name">Job Trigger ID</label>          
+          <input type="text" class="form-control" [value]="data.job_trigger_id" readonly>          
+        </div>
+      </div>        
+    </div>                       
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="name">Tabla</label>          
+          <input type="text" class="form-control text-center" [value]="data.actionable" readonly>          
+        </div>    
+      </div>  
+
+      <div class="col-md-4">       
+        <div class="form-group">
+          <label for="name">Actionable ID</label>          
+          <input type="text" class="form-control text-center" [value]="data.actionable_id" readonly>          
+        </div>
+      </div>  
+      
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="name">Tipo</label>          
+          <input type="text" class="form-control" [value]="data.action_realized"  readonly>          
+        </div>    
+      </div>           
+    </div>   
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="description">Mensaje de Error</label>          
+            <textarea name="description" id="description" rows="5" class="form-control" [value]="data.message" readonly></textarea>          
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="description">Trace Error</label>          
+            <textarea name="description" id="description" rows="8" class="form-control" [value]="data.trace" readonly></textarea>          
+        </div>
+      </div>
+  </div> 
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="request">Request</label>          
+          <textarea name="request" id="request" rows="6" class="form-control" [value]="data.request" readonly></textarea>          
+      </div>
+    </div>
+</div> 
+  
+</div>

@@ -1,0 +1,62 @@
+<div class="login">
+  <div class="login-box card">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="login()" class="form-horizontal form-material text-center" id="loginform">
+        <br>
+        <img src="./assets/images/logo-login.png" width="300px">
+        <br><br>
+        <div class="form-group">
+          <app-control-messages [control]="form.get('document_number')">
+            <input formControlName="document_number" class="form-control" type="text" placeholder="Documento">
+          </app-control-messages>
+        </div>
+        <div class="form-group">
+          <app-control-messages [control]="form.get('password')">
+            <input formControlName="password" class="form-control" type="password" placeholder="Contraseña">
+          </app-control-messages>
+        </div>
+
+        <div *ngIf="error" class="text-danger mb-4">{{error}}</div>
+
+        <div class="form-group text-center mt-4">
+          <div class="col-xs-12">
+            <button [disabled]="isLoading" class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">
+              <i *ngIf="isLoading" class="fa fa-spinner fa-spin mr-2"></i>
+              Iniciar Sesión
+            </button>
+          </div>
+        </div>
+        <!-- <a href="javascript:void(0)" id="to-recover" class="text-muted text-decoration-none" (click)="showRecoveryForm()">
+          <i class="fa fa-lock m-r-5"></i> Recuperar contraseña
+        </a> -->
+      </form>
+
+      <form (ngSubmit)="sendVerificationCode()" [formGroup]="sendEmailForm" class="form-horizontal" id="recoverform">
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <h3>
+              <i class="fa fa-arrow-left cursor-pointer" title="Volver" (click)="showLoginForm()"></i>
+              Recuperar Contraseña
+            </h3>
+            <p class="text-muted">Ingresa tu correo electrónico para recibir el código de verificación </p>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group ">
+            <app-control-messages [control]="sendEmailForm.get('email')">
+              <input formControlName="email" class="form-control" type="email" required placeholder="Correo">
+            </app-control-messages>
+          </div>
+        </div>
+        <div class="col-12 text-danger" *ngIf="error">{{error}}</div>
+        <div class="col-xs-12">
+          <div class="form-group text-center m-t-20">
+            <button [disabled]="isLoading" class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">
+              <i *ngIf="isLoading" class="fa fa-spinner fa-spin mr-2"></i> Enviar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

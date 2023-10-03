@@ -1,0 +1,29 @@
+@use "~assets/scss/mixins" as mixins;
+
+.login {
+  background-color: #EEEEEE;
+  height: 100%;
+  width: 100%;
+  padding: 10% 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login-box {
+    width: 320px;
+
+    @include mixins.min-width-576 {
+      width: 400px;
+    }
+
+    &.card {
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    #recoverform {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,106 @@
+$card-table-border-color: #b77203;
+$bcolor: #d9000d;
+$bcolor-grad: #a3040a;
+
+.report-container{
+    font-size: 11px;
+    //font-family: 'Courier New', Courier, monospace;
+    color: #303030;
+}
+
+.card-table{
+    border: 1px solid $card-table-border-color;    
+}
+
+.card-table td
+{    
+    border-bottom: 0px none;
+    border-top: 0px none;   
+}
+
+.tr-items:nth-child(odd)
+{    
+    background-color: #ffe6bc;    
+}
+
+.title > td{
+    font-size: 14px;
+    color: #fff;
+    background: linear-gradient(70deg, $bcolor, $bcolor-grad);
+    font-weight: bold;
+    padding: 8px;    
+    border-bottom: 1px solid $card-table-border-color;
+    border-top: 1px solid $card-table-border-color;
+    border-left: 0px none;
+    border-right: 0px none;   
+}
+
+.title-two > td {
+    color: #fff;
+    background: linear-gradient(70deg, $bcolor, $bcolor-grad);
+    font-weight: bold;
+    padding-left: 20px;    
+    padding-right: 20px;    
+    border-bottom: 1px solid $bcolor;
+    border-top: 1px solid $card-table-border-color;    
+    border-left: 1px solid $bcolor;    
+}
+
+.subtitles{
+    height: 50px;
+}
+
+.subtitles > td{
+    color: #fff;
+    background: linear-gradient(70deg, $bcolor, $bcolor-grad);
+    font-weight: bold;
+    border-bottom: 1px solid $card-table-border-color;
+    border-top: 1px solid $card-table-border-color;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 0px none;
+    border-right: 0px none;      
+}
+
+.subtitles > td:last-child
+{
+    border-right: 1px solid $card-table-border-color;   
+}
+
+.subtitles > td:first-child
+{
+    border-left: 1px solid $card-table-border-color;   
+}
+
+.footerx {
+    //background-color:rgba(217, 0, 13, 0.1);    
+    background-color: #383636;    
+}
+
+.footerx > td 
+{
+    font-weight: bold;
+    color: #fff;
+    border-bottom: 1px solid $card-table-border-color;
+    border-top: 1px solid $card-table-border-color;
+}
+
+.field-badgets {
+    font-size: 25px;  
+    margin-bottom: 10px;  
+}
+
+.field-badgets > span{
+    margin-right: 15px;
+    padding: 8px 12px;        
+    //background: linear-gradient(10deg, #ffb22b, #fccd7b);
+    //border: 2px solid #d6972a !important;
+}
+
+.growth-rate {
+    font-weight: bold; font-size: 20px
+}
+
+.badge {
+    font-size: 18px;
+}

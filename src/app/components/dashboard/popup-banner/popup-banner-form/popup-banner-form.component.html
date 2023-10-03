@@ -1,0 +1,35 @@
+<div [formGroup]="form">
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="name">Imagen</label>
+        <div *ngIf="data.image != null" class="text-left">
+          <a target="_blank" href="{{data.image}}">
+            <img src="{{data.image}}">
+          </a>
+        </div>
+
+        <div class="text-left" style="padding-top: 10px">
+          <app-control-messages [control]="form.get('image')">
+            <div class="fileupload btn btn-info btn-rounded waves-effect waves-light"
+              style="margin-right: 10px; margin-left: 0px;max-width: 200px"><span
+                style="text-overflow: ellipsis;white-space: nowrap;"><i class="fa fa-upload m-r-5"></i>
+                {{ form.get('image').value ? 'Seleccionado': 'Subir imagen' }}</span>
+              <input type="file" class="upload" (change)="uploadFile($event.target.files[0])"  accept="image/png, image/jpeg, image/jpg" >
+            </div>
+          </app-control-messages>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-primary mr-2" (click)="onClickSave()">Guardar</button>
+    </div>
+  </div>
+
+</div>
